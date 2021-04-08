@@ -1,4 +1,4 @@
-This project was created with:
+This project was created from the commandline with:
 
 
 `dotnet new feather -n BasicService`
