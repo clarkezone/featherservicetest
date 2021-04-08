@@ -14,7 +14,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
       with:
-      fetch-depth: 0 # avoid shallow clone so nbgv can do its work.
+        fetch-depth: 0 # avoid shallow clone so nbgv can do its work.
     - uses: aarnott/nbgv@v0.4.0
       with:
         setAllVars: true
