@@ -12,7 +12,8 @@ A playground for building minimal grpc service endpoints using featherhttp.
 - [ ] Bicep for creating ACR infra
 - [ ] Main branch push container to ACR
 - [ ] Replace greeter with bi-directional streaming gRPC
-- [ ] Flutter client
+- [ ] Dotnetcore cli client
+- [ ] Flutter GUI client
 - [ ] Add logging
 - [ ] Add basic health probe
 - [ ] Add basic Prometheus metrics
