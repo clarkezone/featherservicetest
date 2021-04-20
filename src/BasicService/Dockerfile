@@ -2,6 +2,8 @@
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /source
 
+RUN dotnet tool install --tool-path ./ dotnet-certificate-tool
+
 # copy csproj and restore as distinct layers
 COPY *.sln .
 COPY BasicService/*.csproj ./BasicService/
@@ -19,5 +21,7 @@ RUN dotnet publish -c release -o /app --no-restore
 # final stage/image
 FROM mcr.microsoft.com/dotnet/aspnet:5.0
 WORKDIR /app
+ENV ASPNETCORE_URLS=https://+;http://+;
+EXPOSE 3000
 COPY --from=build /app ./
-ENTRYPOINT ["dotnet", "aspnetapp.dll"]
+ENTRYPOINT ["dotnet", "BasicService.dll"]

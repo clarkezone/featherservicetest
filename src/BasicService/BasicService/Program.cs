@@ -12,7 +12,7 @@ builder.Services.AddGrpc();
 
 var app = builder.Build();
 
-app.Listen("https://localhost:3000");
+app.Listen("http://localhost:3000");
 
 app.MapGrpcService<GreeterService>();
 
