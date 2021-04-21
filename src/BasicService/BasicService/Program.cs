@@ -12,8 +12,10 @@ builder.Services.AddGrpc();
 
 var app = builder.Build();
 
-app.Listen("http://localhost:3000");
+//app.Listen("http://127.0.0.1:3000");
 
+//Docker requires this:
+app.Listen("http://*:3000");
 app.MapGrpcService<GreeterService>();
 
 await app.RunAsync();
