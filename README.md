@@ -21,10 +21,11 @@ A playground for building minimal grpc service endpoints in donetcore using [fea
 - [ ] Add logging / tracing
 - [ ] Add basic health probe
 - [ ] Add basic Prometheus metrics
-- [ ] Add Jaeger distributed tracing
+- [ ] Add Open Telemetry Jaeger distributed tracing
 - [ ] Script to deploy to k3s cluster
 - [ ] Script to deploy to ACI
-- [ ] Add tye
+- [ ] Add Project Tye
+- [ ] Add OSM support
 - [ ] Add DAPR support
 - [ ] Investigate adding code coverage metrics
 
