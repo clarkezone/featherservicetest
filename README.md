@@ -1,11 +1,14 @@
 # featherservicetest
 A playground for building minimal grpc service endpoints in donetcore using [featherhttp](https://github.com/featherhttp/framework).
 
+[![.NET](https://github.com/clarkezone/featherservicetest/actions/workflows/dotnet.yml/badge.svg)](https://github.com/clarkezone/featherservicetest/actions/workflows/dotnet.yml)
+
+
 # Backlog
 - [x] Get basic working gRPC endpoint running using featherhttp
 - [x] Simple unit test
 - [X] Dockerize
-- [X] Set up basic CI/CD pipeline
+- [X] Set up basic CI/CD pipeline using github actions
 - [X] Enforce PR workflow gated by tests
 - [X] Add git versioning https://github.com/dotnet/Nerdbank.GitVersioning
 - [X] Dotnetcore cli client
@@ -24,8 +27,6 @@ A playground for building minimal grpc service endpoints in donetcore using [fea
 - [ ] Add tye
 - [ ] Add DAPR support
 - [ ] Investigate adding code coverage metrics
-
-[![.NET](https://github.com/clarkezone/featherservicetest/actions/workflows/dotnet.yml/badge.svg)](https://github.com/clarkezone/featherservicetest/actions/workflows/dotnet.yml)
 
 # Dev setup
 
