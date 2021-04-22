@@ -1,26 +1,52 @@
 # featherservicetest
-A playground for building minimal grpc service endpoints using featherhttp.
+A playground for building minimal grpc service endpoints in donetcore using [featherhttp](https://github.com/featherhttp/framework).
 
 # Backlog
-- [x] Get basic working gRPC endpoint running
+- [x] Get basic working gRPC endpoint running using featherhttp
 - [x] Simple unit test
 - [X] Dockerize
 - [X] Set up basic CI/CD pipeline
 - [X] Enforce PR workflow gated by tests
-- [ ] Add git versioning https://github.com/dotnet/Nerdbank.GitVersioning
-- [ ] Add versioned docker build to CI/CD for main / dev branches
-- [ ] Bicep for creating ACR infra
+- [X] Add git versioning https://github.com/dotnet/Nerdbank.GitVersioning
+- [X] Dotnetcore cli client
+- [ ] BLOCKED: Local docker build using selfsigned cert with test client
+- [ ] Add versioned docker build to github action for main / dev branches
+- [ ] IN PROGRESS: Bicep for creating ACR infra
 - [ ] Main branch push container to ACR
+- [ ] Add editor config
 - [ ] Replace greeter with bi-directional streaming gRPC
-- [ ] Dotnetcore cli client
-- [ ] Flutter GUI client
-- [ ] Add logging
+- [ ] Add logging / tracing
 - [ ] Add basic health probe
 - [ ] Add basic Prometheus metrics
 - [ ] Add Jaeger distributed tracing
 - [ ] Script to deploy to k3s cluster
 - [ ] Script to deploy to ACI
+- [ ] Add tye
 - [ ] Add DAPR support
 - [ ] Investigate adding code coverage metrics
 
 [![.NET](https://github.com/clarkezone/featherservicetest/actions/workflows/dotnet.yml/badge.svg)](https://github.com/clarkezone/featherservicetest/actions/workflows/dotnet.yml)
+
+# Dev setup
+
+## Pre-requs
+- VSCode
+- Docker
+- dotnet 5 RTM
+
+## Steps
+1. Build docker image: 
+    - `cd src\BasicService`
+    - `docker build -t feathertestservice:0 .`
+2. Create self-signed cert
+    - `powershell .\localdev\createsscert.ps1`
+    - Start `certmgr`
+    - Confirm that contoso.com is listed in Trusted Root Certificate Authorities\Certificates
+3. Add an entry for contoso.com in hosts file
+    - `code C:\Windows\System32\drivers\etc\hosts`
+    - add hosts entry `127.0.0.1 contoso.com`
+4. Run docker image:
+    - `docker run --rm -it -p 3000:3000 -p 3001:3443 -e ASPNETCORE_URLS="https://+;http://+" -e ASPNETCORE_HTTPS_PORT=3001 -e ASPNETCORE_ENVIRONMENT=Development -e ASPNETCORE_Kestrel__Certificates__Default__Password="password" -e ASPNETCORE_Kestrel__Certificates__Default__Path=/https/contoso.com.pfx  -e Logging__LogLevel__Microsoft=Debug -e Logging__LogLevel__Grpc=Debug -v /c/certs:/https/ feathertestservice:0`
+5. Run client
+    - `cd src\BasicClient`
+    - `dotnet run`
