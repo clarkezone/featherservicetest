@@ -28,6 +28,7 @@ A playground for building minimal grpc service endpoints in donetcore using [fea
 - [ ] Add Project Tye
 - [ ] Add OSM support
 - [ ] Add DAPR support
+- [ ] Golang client
 - [ ] Investigate adding code coverage metrics
 
 # Dev setup
