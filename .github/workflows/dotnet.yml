@@ -28,4 +28,12 @@ jobs:
     - name: Build
       run: dotnet build ./src/BasicService/BasicService.sln -c Release 
     - name: Test
-      run: dotnet test ./src/BasicService/BasicService.sln
+      run: dotnet test ./src/BasicService/BasicService.sln 
+        /p:CollectCoverage=true
+        /p:CoverletOutput=TestResults/ 
+        /p:CoverletOutputFormat=lcov
+    - name: Publish coverage report to coveralls.io
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        path-to-lcov: src/BasicService/GreeterLogic.Tests/TestResults/coverage.info
