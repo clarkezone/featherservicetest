@@ -40,7 +40,7 @@ A playground for building minimal grpc service endpoints in donetcore using [fea
 1. Build docker image: 
     - `cd src\BasicService`
     - `docker build -t feathertestservice:0 .`
-2. Create self-signed cert
+2. Create self-signed cert (Taken from https://docs.microsoft.com/en-us/dotnet/core/additional-tools/self-signed-certificates-guide)
     - `powershell .\localdev\createsscert.ps1`
     - Start `certmgr`
     - Confirm that contoso.com is listed in Trusted Root Certificate Authorities\Certificates
