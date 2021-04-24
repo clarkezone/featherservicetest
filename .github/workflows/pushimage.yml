@@ -17,7 +17,6 @@ jobs:
           tenant: ${{ secrets.tenant }}
           registry: ${{ secrets.registry }}
           repository: ${{ secrets.repository }}
-          image: poi
-          git_access_token: ${{ secrets.git_access_token }}
-          folder: src/poi
-          dockerfile: ../../dockerfiles/Dockerfile_3
+          image: release
+          folder: src/BasicService/BasicService
+          dockerfile: Dockerfile
