@@ -53,3 +53,5 @@ A playground for building minimal grpc service endpoints in donetcore using [fea
 5. Run client
     - `cd src\BasicClient`
     - `dotnet run`
+
+
