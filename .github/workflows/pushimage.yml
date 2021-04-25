@@ -1,7 +1,7 @@
 name: build_image_release
 on:
   push:
-    branches: [releases/**]
+#    branches: [releases/**]
 jobs:
   build:
     runs-on: ubuntu-latest
