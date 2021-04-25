@@ -6,15 +6,19 @@ if ($cr -eq $null) {
     Exit-PSSession -ErrorVariable "Missing rg"
 }
 
+$password = [guid]::NewGuid().Guid
+$secpassw = New-Object Microsoft.Azure.Commands.ActiveDirectory.PSADPasswordCredential -Property @{ StartDate=Get-Date; EndDate=Get-Date -Year 2024; Password=$password}
+
 $roledef = Get-AzRoleAssignment -Scope $cr.ResourceId -RoleDefinitionName "Contributor"
 
 if ($roledef -eq $null) {
     $sp = Get-AzADServicePrincipal -DisplayNameBeginsWith FeatherServiceTestSPACRTask
     if ($sp -eq $null) {
-        $sp = New-AzADServicePrincipal -DisplayName FeatherServiceTestSPACRTask -SkipAssignment
+        $sp = New-AzADServicePrincipal -DisplayName FeatherServiceTestSPACRTask -PasswordCredential $secpassw
     }
     $ra = New-AzRoleAssignment -ObjectId $sp.Id -Scope $cr.ResourceId -RoleDefinitionName "Contributor"
     $ra
+    Write-Host "Password=$password"
 } else {
     Write-Host "Roll assignedment exists"
 }
