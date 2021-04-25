@@ -1,3 +1,4 @@
+# reference https://github.com/Azure/azure-docs-powershell-samples/blob/master/container-registry/service-principal-create/service-principal-create.ps1
 $rgname = 'biceptest'
 
 $cr = Get-AzResource -Name clarkezonecontainerregistry2 -ResourceGroupName $rgname
