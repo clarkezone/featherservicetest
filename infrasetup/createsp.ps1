@@ -12,12 +12,13 @@ $secpassw = New-Object Microsoft.Azure.Commands.ActiveDirectory.PSADPasswordCred
 $roledef = Get-AzRoleAssignment -Scope $cr.ResourceId -RoleDefinitionName "Contributor"
 
 if ($roledef -eq $null) {
-    $sp = Get-AzADServicePrincipal -DisplayNameBeginsWith FeatherServiceTestSPACRTask
+    $sp = Get-AzADServicePrincipal -DisplayNameBeginsWith FeatherServiceTestSPACRTask2
     if ($sp -eq $null) {
-        $sp = New-AzADServicePrincipal -DisplayName FeatherServiceTestSPACRTask -PasswordCredential $secpassw
+        $sp = New-AzADServicePrincipal -DisplayName FeatherServiceTestSPACRTask2 -PasswordCredential $secpassw
     }
-    $ra = New-AzRoleAssignment -ObjectId $sp.Id -Scope $cr.ResourceId -RoleDefinitionName "Contributor"
-    $ra
+    New-AzRoleAssignment -ObjectId $sp.Id -Scope $cr.ResourceId -RoleDefinitionName "Contributor"
+    #$ra
+    Write-Host $sp.ApplicationId
     Write-Host "Password=$password"
 } else {
     Write-Host "Roll assignedment exists"
