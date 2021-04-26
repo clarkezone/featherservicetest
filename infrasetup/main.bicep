@@ -7,15 +7,15 @@ resource managedIdentity 'Microsoft.ManagedIdentity/userAssignedIdentities@2018-
   location: resourceGroup().location
 }
 
-// resource roleAssignment 'Microsoft.Authorization/roleAssignments@2020-04-01-preview' = {
-// name: roleAssignmentName
-// scope: containerreg
-// properties: {
-//   roleDefinitionId: roleDefinitionId
-//   principalId: managedIdentity.properties.principalId
-//   principalType: 'ServicePrincipal'
-// }
-//}
+ resource roleAssignment 'Microsoft.Authorization/roleAssignments@2020-04-01-preview' = {
+ name: roleAssignmentName
+ scope: containerreg
+ properties: {
+   roleDefinitionId: roleDefinitionId
+   principalId: managedIdentity.properties.principalId
+   principalType: 'ServicePrincipal'
+ }
+}
 
 // resource keyv 'Microsoft.KeyVault/vaults@2019-09-01' = {
 //   name : 'cool2'
