@@ -3,7 +3,7 @@ var roleDefinitionId = resourceId('Microsoft.Authorization/roleDefinitions', '7f
 var roleAssignmentName = guid(identityName, roleDefinitionId)
 
 resource managedIdentity 'Microsoft.ManagedIdentity/userAssignedIdentities@2018-11-30' = {
-  name: 'webAppIdentity'
+  name: 'feathercontaineruploader'
   location: resourceGroup().location
 }
 
