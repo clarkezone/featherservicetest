@@ -1,6 +1,8 @@
 var identityName = 'scratch'
 // 8311e382-0749-4cb8-b61a-304f252e45ec == AcrPush from https://docs.microsoft.com/en-us/azure/role-based-access-control/built-in-roles
-var roleDefinitionId = resourceId('Microsoft.Authorization/roleDefinitions', '8311e382-0749-4cb8-b61a-304f252e45ec')
+// 7f951dda-4ed3-4680-a7ca-43fe172d538d == AcrPull
+
+var roleDefinitionId = resourceId('Microsoft.Authorization/roleDefinitions', '7f951dda-4ed3-4680-a7ca-43fe172d538d')
 var roleAssignmentName = guid(identityName, roleDefinitionId)
 
 resource managedIdentity 'Microsoft.ManagedIdentity/userAssignedIdentities@2018-11-30' = {
@@ -8,14 +10,14 @@ resource managedIdentity 'Microsoft.ManagedIdentity/userAssignedIdentities@2018-
   location: resourceGroup().location
 }
 
- resource roleAssignment 'Microsoft.Authorization/roleAssignments@2020-04-01-preview' = {
- name: roleAssignmentName
- scope: containerreg
- properties: {
-   roleDefinitionId: roleDefinitionId
-   principalId: managedIdentity.properties.principalId
-   principalType: 'ServicePrincipal'
- }
+resource roleAssignment 'Microsoft.Authorization/roleAssignments@2020-04-01-preview' = {
+  name: roleAssignmentName
+  scope: containerreg
+  properties: {
+    roleDefinitionId: roleDefinitionId
+    principalId: managedIdentity.properties.principalId
+    principalType: 'ServicePrincipal'
+  }
 }
 
 // resource keyv 'Microsoft.KeyVault/vaults@2019-09-01' = {
