@@ -1,16 +1,14 @@
 name: build_image_release
 on:
   push:
-    branches: [releases/**]
-    paths:
-      - "src/**"
+    branches: [releases/test]
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: ACR build
         id: acr
-        uses: ams0/acr-task-github-action@v1
+        uses: ams0/acr-task-github-action@v2
         with:
           service_principal: ${{ secrets.service_principal }}
           service_principal_password: ${{ secrets.service_principal_password }}

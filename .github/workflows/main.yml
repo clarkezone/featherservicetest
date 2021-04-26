@@ -1,0 +1,55 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Build release
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ release/test ]
+  pull_request:
+    branches: [ release/test ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  Build:
+    runs-on: ubuntu-20.04
+
+    env:
+      COMMIT_REF: $(git rev-parse --short "$GITHUB_SHA")
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Run Bicep build
+        uses: aliencube/bicep-build-actions@v0.1
+        with:
+          files: infrasetup/main.bicep
+
+      - name: Login to Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          
+      - name: Azure CLI script
+        uses: azure/CLI@v1
+        with:
+          azcliversion: 2.0.72
+          inlineScript: |
+            az account show
+            
+      - name: Create Resource Group
+        run: |
+          az group create -g "featherservicetest-rg" -l "West US"
+      - name: Deploy Azure Resource Manager (ARM) Template
+        uses: azure/arm-deploy@v1
+        id: deploy
+        with:
+          scope: resourcegroup
+          subscriptionId: ${{ secrets.SUBSCRIPTION_ID }}
+          resourceGroupName: featherservicetest-rg
+          template: ./infrasetup/main.json
+          deploymentMode: Incremental
