@@ -70,6 +70,6 @@ jobs:
 #        with:
 #          azcliversion: 2.0.72
 #          inlineScript: |
-            az acr login --name clarkezonecontainerregistry2
+#            az acr login --name clarkezonecontainerregistry2
             
         
