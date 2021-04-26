@@ -47,14 +47,15 @@ jobs:
           resourceGroupName: featherservicetest-rg
           template: ./infrasetup/main.json
           deploymentMode: Incremental
-
-#      - name: Azure CLI script
-#        uses: azure/CLI@v1
-#        with:
-#          azcliversion: 2.0.72
-#          inlineScript: |
-#            ACR_TOKEN=$(az acr login --name clarkezonecontainerregistry2 --expose-token --query accessToken --output tsv)
             
       - name: Build Docker
-        run: docker build ./src/BasicService/. 
+        run: docker build -t testimagecicd ./src/BasicService/. 
+        
+      - name: Azure CLI script
+        uses: azure/CLI@v1
+        with:
+          azcliversion: 2.0.72
+          inlineScript: |
+            az acr login --name clarkezonecontainerregistry2
+            docker push testimagecidi
         
