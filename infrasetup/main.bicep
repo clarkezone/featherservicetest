@@ -1,9 +1,10 @@
 var identityName = 'scratch'
-var roleDefinitionId = resourceId('Microsoft.Authorization/roleDefinitions', '7f951dda-4ed3-4680-a7ca-43fe172d538d')
+// 8311e382-0749-4cb8-b61a-304f252e45ec == AcrPush from https://docs.microsoft.com/en-us/azure/role-based-access-control/built-in-roles
+var roleDefinitionId = resourceId('Microsoft.Authorization/roleDefinitions', '8311e382-0749-4cb8-b61a-304f252e45ec')
 var roleAssignmentName = guid(identityName, roleDefinitionId)
 
 resource managedIdentity 'Microsoft.ManagedIdentity/userAssignedIdentities@2018-11-30' = {
-  name: 'feathercontaineruploader'
+  name: 'webappidentity'
   location: resourceGroup().location
 }
 
