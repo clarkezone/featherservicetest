@@ -15,18 +15,28 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  Build:
+    runs-on: ubuntu-20.04
+
+    env:
+      COMMIT_REF: $(git rev-parse --short "$GITHUB_SHA")
+
     steps:
-      - name: ACR build
-        id: acr
-        uses: ams0/acr-task-github-action@v2
+      - uses: actions/checkout@v2
+
+#      - name: Run Bicep build
+#        uses: aliencube/bicep-build-actions@v0.1
+#        with:
+#          files: Infrastructure/main.bicep
+
+      - name: Login to Azure
+        uses: azure/login@v1
         with:
-          service_principal: ${{ secrets.service_principal }}
-          service_principal_password: ${{ secrets.service_principal_password }}
-          tenant: ${{ secrets.tenant }}
-          registry: ${{ secrets.registry }}
-          repository: ${{ secrets.repository }}
-          image: release
-          folder: src/BasicService
-          dockerfile: Dockerfile
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          
+      - name: Azure CLI script
+        uses: azure/CLI@v1
+        with:
+          azcliversion: 2.0.72
+          inlineScript: |
+            az account show
