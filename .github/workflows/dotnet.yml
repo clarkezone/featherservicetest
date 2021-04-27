@@ -32,6 +32,8 @@ jobs:
         /p:CollectCoverage=true
         /p:CoverletOutput=TestResults/ 
         /p:CoverletOutputFormat=lcov
+        /p:Threshold=80
+        /p:ThresholdType=line
     - name: Publish coverage report to coveralls.io
       uses: coverallsapp/github-action@master
       with:
