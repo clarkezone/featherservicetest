@@ -1,1 +1,1 @@
-dotnet test .\GreeterLogic.Tests\ /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
+dotnet test .\GreeterLogic.Tests\ /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov /p:Threshold=80 /p:ThresholdType=line
