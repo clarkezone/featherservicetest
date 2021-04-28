@@ -15,14 +15,15 @@ A playground for building minimal grpc service endpoints in donetcore using [fea
 - [X] Bicep for creating ACR infra
 - [X] Local docker build works using selfsigned cert with test client
 - [X] Release branch push prod container to ACR
-- [X] Figure out ACR login via docker
+- [ ] Figure out ACR login via docker
 - [ ] Add editor config
+- [ ] Add logging / tracing including client-side logging
+- [ ] Add self-signed cert support when hosted on Linux
+- [ ] Add basic OpenTelemitry metric publishing
 - [ ] Replace greeter with bi-directional streaming gRPC
-- [ ] Add logging / tracing
-- [ ] Add basic health probe
-- [ ] Add basic Prometheus metrics
 - [ ] Add Open Telemetry Jaeger distributed tracing
 - [ ] Add production SSL cert with keyvault
+- [ ] Add basic health probe
 - [ ] Script to deploy to k3s cluster
 - [ ] Script to deploy to ACI
 - [ ] Add Project Tye
