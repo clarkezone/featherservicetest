@@ -15,6 +15,7 @@ A playground for building minimal grpc service endpoints in donetcore using [fea
 - [X] Bicep for creating ACR infra
 - [X] Local docker build works using selfsigned cert with test client
 - [X] Release branch push prod container to ACR
+- [X] Figure out ACR login via docker
 - [ ] Add editor config
 - [ ] Replace greeter with bi-directional streaming gRPC
 - [ ] Add logging / tracing
