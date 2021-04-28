@@ -13,8 +13,8 @@ A playground for building minimal grpc service endpoints in donetcore using [fea
 - [X] Add git versioning https://github.com/dotnet/Nerdbank.GitVersioning
 - [X] Dotnetcore cli client
 - [X] Bicep for creating ACR infra
-- [ ] BLOCKED: Local docker build using selfsigned cert with test client
-- [ ] Release branch push prod container to ACR
+- [X] Local docker build works using selfsigned cert with test client
+- [X] Release branch push prod container to ACR
 - [ ] Add editor config
 - [ ] Replace greeter with bi-directional streaming gRPC
 - [ ] Add logging / tracing
