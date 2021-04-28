@@ -49,7 +49,7 @@ A playground for building minimal grpc service endpoints in donetcore using [fea
     - `code C:\Windows\System32\drivers\etc\hosts`
     - add hosts entry `127.0.0.1 contoso.com`
 4. Run docker image:
-    - `docker run --rm -it -p 3000:3000 -p 3001:3443 -e ASPNETCORE_URLS="https://+;http://+" -e ASPNETCORE_HTTPS_PORT=3001 -e ASPNETCORE_ENVIRONMENT=Development -e ASPNETCORE_Kestrel__Certificates__Default__Password="password" -e ASPNETCORE_Kestrel__Certificates__Default__Path=/https/contoso.com.pfx  -e Logging__LogLevel__Microsoft=Debug -e Logging__LogLevel__Grpc=Debug -v /c/certs:/https/ feathertestservice:0`
+    - `docker run --rm -it -p 3000:3000 -p 3001:3001 -e ASPNETCORE_URLS="https://+;http://+" -e ASPNETCORE_HTTPS_PORT=3001 -e ASPNETCORE_ENVIRONMENT=Development -e ASPNETCORE_Kestrel__Certificates__Default__Password="password" -e ASPNETCORE_Kestrel__Certificates__Default__Path=/https/contoso.com.pfx  -e Logging__LogLevel__Microsoft=Debug -e Logging__LogLevel__Grpc=Debug -v /c/certs:/https/ feathertestservice:0`
 5. Run client
     - `cd src\BasicClient`
     - `dotnet run`
