@@ -16,8 +16,9 @@ A playground for building minimal grpc service endpoints in donetcore using [fea
 - [X] Local docker build works using selfsigned cert with test client
 - [X] Release branch push prod container to ACR
 - [X] Figure out ACR login via docker
+- [X] Fix client-side logging
 - [ ] Add editor config
-- [ ] Add logging / tracing including client-side logging
+- [ ] Add service-side logging / tracing
 - [ ] Add self-signed cert support when hosted on Linux
 - [ ] Add basic OpenTelemitry metric publishing
 - [ ] Replace greeter with bi-directional streaming gRPC
