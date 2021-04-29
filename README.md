@@ -4,7 +4,8 @@ A playground for building minimal grpc service endpoints in donetcore using [fea
 [![.NET](https://github.com/clarkezone/featherservicetest/actions/workflows/dotnet.yml/badge.svg)](https://github.com/clarkezone/featherservicetest/actions/workflows/dotnet.yml)
 [![Coverage Status](https://coveralls.io/repos/github/clarkezone/featherservicetest/badge.svg)](https://coveralls.io/github/clarkezone/featherservicetest)
 
-# Backlog
+# Backlog Phase 1
+Theme: Hello world for frontend, Infra
 - [x] Get basic working gRPC endpoint running using featherhttp
 - [x] Simple unit test
 - [X] Dockerize
@@ -17,21 +18,30 @@ A playground for building minimal grpc service endpoints in donetcore using [fea
 - [X] Release branch push prod container to ACR
 - [X] Figure out ACR login via docker
 - [X] Fix client-side logging
+- [X] Investigate adding code coverage metrics
 - [ ] Add editor config
 - [ ] Add service-side logging / tracing
 - [ ] Add self-signed cert support when hosted on Linux
-- [ ] Add basic OpenTelemitry metric publishing
-- [ ] Replace greeter with bi-directional streaming gRPC
-- [ ] Add Open Telemetry Jaeger distributed tracing
-- [ ] Add production SSL cert with keyvault
+- [ ] Add basic Prometheus metric publishing
+- [ ] Replace greeter with bi-directional simple streaming ping/pong gRPC
+- [ ] Helm chart to deploy to K8s
 - [ ] Add basic health probe
-- [ ] Script to deploy to k3s cluster
-- [ ] Script to deploy to ACI
+- [ ] Script / action to deploy to k3s cluster
+- [ ] Script / action to deploy to ACI
+
+# Backlog Phase 2
+Theme: Hello microservice
+- [ ] Add production SSL cert with Azure keyvault
+- [ ] Add a backend microsevice (eg a simple in-memory queue)
+- [ ] Add Open Telemetry Jaeger distributed tracing
 - [ ] Add Project Tye
 - [ ] Add OSM support
 - [ ] Add DAPR support
 - [ ] Golang client
-- [ ] Investigate adding code coverage metrics
+? Authentication for front end gRPC
+
+# Backlog Phase 3
+Theme: Moah backend service integration
 
 # Dev setup
 
