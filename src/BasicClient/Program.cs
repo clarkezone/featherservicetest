@@ -11,40 +11,22 @@ namespace GRPCClient
 {
     class Program
     {
-
-
         static async Task Main(string[] args)
         {
-            
-
-
-
-            // using (var loggerFactory = LoggerFactory.Create(builder => builder.AddConsole()))
-            // {
-
-            ServicePointManager.ServerCertificateValidationCallback += ValidateServerCertificate;
-
-            var loggerFactory = LoggerFactory.Create(logging =>
+            using (var loggerFactory = LoggerFactory.Create(logging =>
                 {
-                    //logging.AddConsole();
+                    logging.AddConsole();
                     logging.SetMinimumLevel(LogLevel.Debug);
-                });
+                }))
+            {
 
-            var httpClientHandler = new HttpClientHandler();
-            httpClientHandler.ServerCertificateCustomValidationCallback =
-            HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
-            var httpClient = new HttpClient(httpClientHandler);
-            var channel = GrpcChannel.ForAddress("https://contoso.com:3001",
-            new GrpcChannelOptions { HttpClient = httpClient });
+                var httpClientHandler = new HttpClientHandler();
 
+                //httpClientHandler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
+                httpClientHandler.ServerCertificateCustomValidationCallback = ValidateServerCertificate;
+                var httpClient = new HttpClient(httpClientHandler);
 
-
-            // Doesn't work with self signed cert
-        //    var channel = GrpcChannel.ForAddress("https://localhost:3001",
-        //new GrpcChannelOptions { LoggerFactory = loggerFactory });
-
-
-
+                var channel = GrpcChannel.ForAddress("https://127.0.0.1:3001", new GrpcChannelOptions { HttpClient = httpClient, LoggerFactory = loggerFactory });
 
                 var client = new Greeter.GreeterClient(channel);
 
@@ -54,11 +36,11 @@ namespace GRPCClient
 
                 Console.ReadKey();
             }
+        }
 
         private static bool ValidateServerCertificate(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
         {
             return true;
         }
-        //}
     }
 }
