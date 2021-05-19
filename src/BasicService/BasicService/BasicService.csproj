@@ -11,6 +11,9 @@
   <ItemGroup>
     <PackageReference Include="FeatherHttp" Version="0.1.82-alpha.g7c8518a220" />
     <PackageReference Include="Grpc.AspNetCore" Version="2.36.0" />
+    <PackageReference Include="OpenTelemetry.Exporter.Console" Version="1.0.1" />
+    <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.0.0-rc4" />
+    <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.0.0-rc4" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GreeterLogic\GreeterLogic.csproj" />
