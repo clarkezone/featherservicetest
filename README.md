@@ -66,3 +66,51 @@ Theme: Moah backend service integration
 5. Run client
     - `cd src\BasicClient`
     - `dotnet run`
+
+## Running with locally
+1. follow instructions to create private cert as above
+2. create a `docker-compose.yml` file with contents:
+    ```
+    services:
+        BasicService:
+            image: feathertestservice:0
+            ports:
+            - "3001:3001"
+            environment:
+            - ASPNETCORE_URLS=https://+;http://+
+            - ASPNETCORE_HTTPS_PORT=3001
+            - ASPNETCORE_ENVIRONMENT=Production
+            - ASPNETCORE_Kestrel__Certificates__Default__Password=password
+            - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/contoso.com.pfx
+            - Logging__LogLevel__Microsoft=Debug
+            - Logging__LogLevel__Grpc=Debug
+            - basicservice_logendpoint=http://loki:3100 #loki prefix is important
+            volumes:
+            - /c/certs:/https/
+            networks:
+            - loki
+
+        loki:
+            image: grafana/loki:master
+            ports:
+            - "3100:3100"
+            command: -config.file=/etc/loki/local-config.yaml
+            networks:
+            - loki
+
+        grafana:
+            image: grafana/grafana:master
+            ports:
+            - "3000:3000"
+            networks:
+            - loki
+
+    networks:
+        loki:
+
+
+3. `docker compose up`
+4. Navigate to `localhost:3000`
+5. Go to configuration -> Datasources
+6. Add a loki datasource pointing to `http://loki:3100`
+7. Go to explore and enter the following query: `{Application="BasicService"}`

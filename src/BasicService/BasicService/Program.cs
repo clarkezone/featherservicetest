@@ -14,7 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddGrpc();
 
-builder.Configuration.AddEnvironmentVariables();
+builder.Configuration.AddEnvironmentVariables(prefix:"basicservice_");
 builder.Configuration.AddCommandLine(args);
 
 // TODO replace Serilog with Otel->Loki
@@ -22,7 +22,8 @@ builder.Configuration.AddCommandLine(args);
 builder.Host.UseSerilog((context, configuration)
 	=>
         {
-            var credentials = new NoAuthCredentials("http://localhost:3100"); //TODO replace with configuration
+            var logendpoint = context.Configuration["logendpoint"];
+            var credentials = new NoAuthCredentials(logendpoint);
             configuration
                 .Enrich
                 .FromLogContext()
@@ -31,19 +32,15 @@ builder.Host.UseSerilog((context, configuration)
                 .Enrich
                 .WithProperty("Environment", context.HostingEnvironment.EnvironmentName);
 
-            if (context.HostingEnvironment.IsEnvironment("Production"))
+            configuration
+                .WriteTo
+                .Console();
+
+            if(logendpoint != null)
             {
                 configuration
                 .WriteTo
                 .LokiHttp(credentials);
-            }
-            else
-            {
-                configuration
-                .WriteTo
-                .LokiHttp(credentials)
-                .WriteTo
-                .Console();
             }
         }
 	);
