@@ -5,10 +5,21 @@ using GRPC;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddGrpc();
+
+//https://grafana.com/blog/2021/02/11/instrumenting-a-.net-web-api-using-opentelemetry-tempo-and-grafana-cloud/
+//Result: doesn't output traces
+builder.Services.AddOpenTelemetryTracing((builder)=> {
+    builder.SetResourceBuilder(
+        ResourceBuilder.CreateDefault().AddService("feather-http-basic-service"))
+            .AddAspNetCoreInstrumentation((options)=>{options.EnableGrpcAspNetCoreSupport=true; })
+            .AddConsoleExporter();
+});
 
 var app = builder.Build();
 
