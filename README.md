@@ -19,21 +19,22 @@ Theme: Hello world for frontend, Infra
 - [X] Figure out ACR login via docker
 - [X] Fix client-side logging
 - [X] Investigate adding code coverage metrics
-- [ ] Add editor config
-- [ ] Add service-side logging / tracing
-- [ ] Add self-signed cert support when hosted on Linux
+- [X] Add basic editor config
+- [X] Add service-side logging using Grfana Loki
 - [ ] Add basic Prometheus metric publishing
-- [ ] Replace greeter with bi-directional simple streaming ping/pong gRPC
-- [ ] Helm chart to deploy to K8s
 - [ ] Add basic health probe
+- [ ] Add self-signed cert support when hosted on Linux
+- [ ] Helm chart to deploy to K8s
 - [ ] Script / action to deploy to k3s cluster
 - [ ] Script / action to deploy to ACI
+
+- [ ] Replace greeter with bi-directional simple streaming ping/pong gRPC with multiple clients
 
 # Backlog Phase 2
 Theme: Hello microservice
 - [ ] Add production SSL cert with Azure keyvault
 - [ ] Add a backend microsevice (eg a simple in-memory queue)
-- [ ] Add Open Telemetry Jaeger distributed tracing
+- [ ] Add Open Telemetry / Grafana Tempo / Jaeger distributed tracing
 - [ ] Add Project Tye
 - [ ] Add OSM support
 - [ ] Add DAPR support
