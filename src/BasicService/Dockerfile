@@ -22,6 +22,6 @@ RUN dotnet publish -c release -o /app --no-restore
 FROM mcr.microsoft.com/dotnet/aspnet:5.0
 WORKDIR /app
 ENV ASPNETCORE_URLS=https://+;http://+;
-EXPOSE 3000
+EXPOSE 5000
 COPY --from=build /app ./
 ENTRYPOINT ["dotnet", "BasicService.dll"]
