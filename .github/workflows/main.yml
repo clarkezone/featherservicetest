@@ -4,6 +4,7 @@ name: Build release
 
 # Controls when the action will run. 
 on:
+  pull_request:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
     tags:
@@ -52,7 +53,7 @@ jobs:
         with:
           azcliversion: latest
           inlineScript: |
-            az acr build --registry ${{ steps.deploy.outputs.registryNameOutput }} --image featherservicetest:${{ env.COMMIT_REF }} ./src/BasicService/
+            az acr build --registry ${{ steps.deploy.outputs.registryNameOutput }} --image fst${{github.ref}}:${{ env.COMMIT_REF }} ./src/BasicService/
             
 #TODO: sure docker in this action and push to ACR
 #      - name: Build Docker
