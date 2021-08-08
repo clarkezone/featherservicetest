@@ -52,7 +52,7 @@ var app = builder.Build();
 
 //Docker requires this:
 //app.Listen("https://*:3001");
-app.Listen("https://contoso.com:3001");
+//app.Listen("https://contoso.com:3001");
 app.MapGrpcService<GreeterService>();
 
 if (app.Environment.IsDevelopment())
