@@ -21,13 +21,15 @@ Theme: Hello world for frontend, Infra
 - [X] Investigate adding code coverage metrics
 - [X] Add basic editor config
 - [X] Add service-side logging using Grfana Loki
-- [ ] Add basic Prometheus metric publishing
-- [ ] Add basic health probe
+- [X] Support plain-text gRPC
 - [ ] Add self-signed cert support when hosted on Linux
-- [ ] Helm chart to deploy to K8s
+
 - [ ] Script / action to deploy to k3s cluster
 - [ ] Script / action to deploy to ACI
-
+- [ ] Helm chart to deploy to K8s
+- [ ] More infra goodness from https://github.com/martincostello/dotnet-minimal-api-integration-testing
+- [ ] Add basic Prometheus metric publishing
+- [ ] Add basic health probe
 - [ ] Replace greeter with bi-directional simple streaming ping/pong gRPC with multiple clients
 
 # Backlog Phase 2
