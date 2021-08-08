@@ -70,9 +70,14 @@ Theme: Moah backend service integration
     - `cd src\BasicClient`
     - `dotnet run`
 
-## Running with locally
-1. follow instructions to create private cert as above
-2. create a `docker-compose.yml` file with contents:
+## Running locally with plan text
+1. pull the image
+2. `docker run --rm -it -p=5000:80 -e ASPNETCORE_URLS="http://+" -e ASPNETCORE_HTTP_PORT=5000 clarkezonecontainerregistry2.azurecr.io/fstrefs/pull/15/merge:2b876cf`
+
+## Running locally
+1. pull the image
+2. follow instructions to create private cert as above
+3. create a `docker-compose.yml` file with contents:
     ```
     services:
         BasicService:
