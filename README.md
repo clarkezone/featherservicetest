@@ -21,13 +21,15 @@ Theme: Hello world for frontend, Infra
 - [X] Investigate adding code coverage metrics
 - [X] Add basic editor config
 - [X] Add service-side logging using Grfana Loki
-- [ ] Add basic Prometheus metric publishing
-- [ ] Add basic health probe
+- [X] Support plain-text gRPC
 - [ ] Add self-signed cert support when hosted on Linux
-- [ ] Helm chart to deploy to K8s
+
 - [ ] Script / action to deploy to k3s cluster
 - [ ] Script / action to deploy to ACI
-
+- [ ] Helm chart to deploy to K8s
+- [ ] More infra goodness from https://github.com/martincostello/dotnet-minimal-api-integration-testing
+- [ ] Add basic Prometheus metric publishing
+- [ ] Add basic health probe
 - [ ] Replace greeter with bi-directional simple streaming ping/pong gRPC with multiple clients
 
 # Backlog Phase 2
@@ -68,9 +70,14 @@ Theme: Moah backend service integration
     - `cd src\BasicClient`
     - `dotnet run`
 
-## Running with locally
-1. follow instructions to create private cert as above
-2. create a `docker-compose.yml` file with contents:
+## Running locally with plan text
+1. pull the image
+2. `docker run --rm -it -p=5000:80 -e ASPNETCORE_URLS="http://+" -e ASPNETCORE_HTTP_PORT=5000 clarkezonecontainerregistry2.azurecr.io/fstrefs/pull/15/merge:2b876cf`
+
+## Running locally
+1. pull the image
+2. follow instructions to create private cert as above
+3. create a `docker-compose.yml` file with contents:
     ```
     services:
         BasicService:
