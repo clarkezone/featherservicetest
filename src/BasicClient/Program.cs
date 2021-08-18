@@ -26,7 +26,7 @@ namespace GRPCClient
                 httpClientHandler.ServerCertificateCustomValidationCallback = ValidateServerCertificate;
                 var httpClient = new HttpClient(httpClientHandler);
 
-                var channel = GrpcChannel.ForAddress("https://127.0.0.1:3001", new GrpcChannelOptions { HttpClient = httpClient, LoggerFactory = loggerFactory });
+                var channel = GrpcChannel.ForAddress("http://127.0.0.1:5000", new GrpcChannelOptions { HttpClient = httpClient, LoggerFactory = loggerFactory });
 
                 var client = new Greeter.GreeterClient(channel);
 
