@@ -1,12 +1,11 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Build release
+name: Build PR
 
 # Controls when the action will run. 
 on:
-  push:
-    tags:
-      - "v*"
+  # Triggers the workflow on push or pull request events but only for the main branch
+  pull_request:
       
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -51,23 +50,4 @@ jobs:
         with:
           azcliversion: latest
           inlineScript: |
-            az acr build --registry ${{ steps.deploy.outputs.registryNameOutput }} --image fst${{github.ref}}:${{ env.COMMIT_REF }} ./src/BasicService/
-            
-#TODO: sure docker in this action and push to ACR
-#      - name: Build Docker
-#        run: docker build -t testimagecicd ./src/BasicService/. 
-        
-#      - name: Login to ACR
-#        uses: docker/login-action@v1
-#        with:
-#          username: ${{ secrets.DOCKERHUB_USERNAME }}
-#          password: ${{ secrets.DOCKERHUB_TOKEN }}
-        
-#      - name: Azure CLI script
-#        uses: azure/CLI@v1
-#        with:
-#          azcliversion: 2.0.72
-#          inlineScript: |
-#            az acr login --name clarkezonecontainerregistry2
-            
-        
+            az acr build --registry ${{ steps.deploy.outputs.registryNameOutput }} --image fst${{github.ref}}:latest ./src/BasicService/
