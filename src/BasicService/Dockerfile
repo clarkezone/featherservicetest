@@ -19,7 +19,8 @@ WORKDIR /source/BasicService
 RUN dotnet publish -c release -o /app --no-restore
 
 # final stage/image
-FROM mcr.microsoft.com/dotnet/aspnet:5.0
+#FROM mcr.microsoft.com/dotnet/aspnet:5.0
+FROM mcr.microsoft.com/dotnet/aspnet:5.0-buster-slim-arm64v8
 WORKDIR /app
 ENV ASPNETCORE_URLS=https://+;http://+;
 EXPOSE 5000
