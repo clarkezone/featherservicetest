@@ -23,7 +23,7 @@ jobs:
 # https://stackoverflow.com/questions/60300169/how-to-get-branch-name-on-github-action#:~:text=GITHUB_BASE_REF%20is%20the%20short%20branch%20name%20for%20the,PR%2C%20it%20is%20the%20PR%20branch%20name%20%28refs%2Fpull%2F123%2Fmerge%29.
       - name: Get the branch name
         id: get_branch
-        run: echo ::set-output name=BRANCH::${GITHUB_BASE_REF}
+        run: echo ::set-output name=BRANCH::${github.event.pull_request.head.ref}
 
       - name: Get the version
         id: get_version
