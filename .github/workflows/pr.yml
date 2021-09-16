@@ -21,9 +21,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Get the version
+      - name: Get the branch name
         id: get_branch
-        run: echo ::set-output name=BRANCH::${GITHUB_REF/refs\/heads\//}
+        run: echo ::set-output name=BRANCH::${GITHUB_BASE_REF/refs\/heads\//}
 
       - name: Get the version
         id: get_version
