@@ -59,7 +59,7 @@ jobs:
         with:
           azcliversion: latest
           inlineScript: |
-            az acr build --registry ${{ steps.deploy.outputs.registryNameOutput }} --image fst${{ steps.get_branch.outputs.BRANCH }}:${{ steps.get_version.outputs.VERSION }} ./src/BasicService/
+            az acr build --registry ${{ steps.deploy.outputs.registryNameOutput }} --image featherservicetest_release:${{ steps.get_version.outputs.VERSION }} ./src/BasicService/
             
 #TODO: sure docker in this action and push to ACR
 #      - name: Build Docker
