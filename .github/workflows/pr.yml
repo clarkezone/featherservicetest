@@ -58,4 +58,4 @@ jobs:
         with:
           azcliversion: latest
           inlineScript: |
-            az acr build --registry ${{ steps.deploy.outputs.registryNameOutput }} --image fst-${{${{ github.event.pull_request.head.ref}}}}:latest ./src/BasicService/
+            az acr build --registry ${{ steps.deploy.outputs.registryNameOutput }} --image fst-${{ github.event.pull_request.head.ref}}:latest ./src/BasicService/
