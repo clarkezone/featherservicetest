@@ -37,14 +37,14 @@ jobs:
             
       - name: Create Resource Group
         run: |
-          az group create -g "feather-rg" -l "West US"
+          az group create -g "${{ secrets.RESOURCE_GROUP }}" -l "West US"
 
       - name: Create registry and identity
         uses: azure/CLI@v1
         with:
           azcliversion: latest
           inlineScript: |
-            az deployment group create --name makereg --resource-group feather-rg --template-file infrasetup/main.bicep
+            az deployment group create --name makereg --resource-group "${{ secrets.RESOURCE_GROUP }}" --template-file infrasetup/main.bicep
             
       - name: Build image with ACR
         uses: azure/CLI@v1
