@@ -13,7 +13,6 @@ resource managedIdentity 'Microsoft.ManagedIdentity/userAssignedIdentities@2018-
 resource roleAssignment 'Microsoft.Authorization/roleAssignments@2020-04-01-preview' = {
   name: roleAssignmentName
   scope: containerreg
-	resourceGroup: resourceGroup()
   properties: {
     roleDefinitionId: roleDefinitionId
     principalId: managedIdentity.properties.principalId
