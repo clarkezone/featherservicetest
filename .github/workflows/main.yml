@@ -39,13 +39,15 @@ jobs:
         run: |
           az group create -g "${{ secrets.RESOURCE_GROUP }}" -l "West US"
 
-      - name: Create registry
-        uses: azure/CLI@v1
+      - name: Deploy Azure Resource Manager (ARM) Template
+        uses: azure/arm-deploy@v1
         id: deploy
         with:
-          azcliversion: latest
-          inlineScript: |
-            az deployment group create --name makereg --resource-group "${{ secrets.RESOURCE_GROUP }}" --template-file infrasetup/main.bicep
+          scope: resourcegroup
+          subscriptionId: ${{ secrets.SUBSCRIPTION_ID }}
+          resourceGroupName: ${{ secrets.RESOURCE_GROUP }}
+          template: ./infrasetup/main.bicep
+          deploymentMode: Incremental
             
       - name: Build image with ACR
         uses: azure/CLI@v1
