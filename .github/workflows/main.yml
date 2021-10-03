@@ -22,10 +22,13 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Run Bicep build
-        uses: aliencube/bicep-build-actions@v0.1
-        with:
-          files: infrasetup/main.bicep
+      - name: Get the branch
+        id: get_branch
+        run: echo ::set-output name=BRANCH::${GITHUB_REF/refs\/heads\//}
+
+      - name: Get the version
+        id: get_version
+        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
 
       - name: Login to Azure
         uses: azure/login@v1
@@ -34,16 +37,16 @@ jobs:
             
       - name: Create Resource Group
         run: |
-          az group create -g "featherservicetest-rg" -l "West US"
-          
+          az group create -g "${{ secrets.RESOURCE_GROUP }}" -l "West US"
+
       - name: Deploy Azure Resource Manager (ARM) Template
         uses: azure/arm-deploy@v1
         id: deploy
         with:
           scope: resourcegroup
           subscriptionId: ${{ secrets.SUBSCRIPTION_ID }}
-          resourceGroupName: featherservicetest-rg
-          template: ./infrasetup/main.json
+          resourceGroupName: ${{ secrets.RESOURCE_GROUP }}
+          template: ./infrasetup/main.bicep
           deploymentMode: Incremental
             
       - name: Build image with ACR
@@ -51,7 +54,7 @@ jobs:
         with:
           azcliversion: latest
           inlineScript: |
-            az acr build --registry ${{ steps.deploy.outputs.registryNameOutput }} --image fst${{github.ref}}:${{ env.COMMIT_REF }} ./src/BasicService/
+            az acr build --registry ${{ steps.deploy.outputs.registryNameOutput }} --image featherservicetest_release:${{ steps.get_version.outputs.VERSION }} ./src/BasicService/
             
 #TODO: sure docker in this action and push to ACR
 #      - name: Build Docker

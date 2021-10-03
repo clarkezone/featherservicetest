@@ -21,6 +21,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Get the version
+        id: get_version
+        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+
       - name: Run Bicep build
         uses: aliencube/bicep-build-actions@v0.1
         with:
@@ -50,4 +54,4 @@ jobs:
         with:
           azcliversion: latest
           inlineScript: |
-            az acr build --registry ${{ steps.deploy.outputs.registryNameOutput }} --image fst${{github.ref}}:latest ./src/BasicService/
+            az acr build --registry ${{ steps.deploy.outputs.registryNameOutput }} --image fst-${{ github.event.pull_request.head.ref}}:latest ./src/BasicService/
