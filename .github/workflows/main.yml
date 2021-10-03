@@ -39,8 +39,9 @@ jobs:
         run: |
           az group create -g "${{ secrets.RESOURCE_GROUP }}" -l "West US"
 
-      - name: Create registry and identity
+      - name: Create registry
         uses: azure/CLI@v1
+        id: deploy
         with:
           azcliversion: latest
           inlineScript: |
