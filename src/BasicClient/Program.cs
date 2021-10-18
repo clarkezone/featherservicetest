@@ -20,6 +20,8 @@ namespace GRPCClient
                 }))
             {
 
+
+		    // comment  ssaa
                 var httpClientHandler = new HttpClientHandler();
 
                 //httpClientHandler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
