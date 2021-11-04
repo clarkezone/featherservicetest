@@ -18,6 +18,15 @@ builder.Services.AddGrpc();
 builder.Configuration.AddEnvironmentVariables(prefix:"basicservice_");
 builder.Configuration.AddCommandLine(args);
 
+builder.WebHost.ConfigureKestrel(
+		options => {
+		options.ConfigureEndpointDefaults(listen => {
+				
+			listen.Protocols = Microsoft.AspNetCore.Server.Kestrel.Core.HttpProtocols.Http2;	
+				});
+		}
+		);
+
 // TODO replace Serilog with Otel->Loki
 // TODO how to change log levels in prod
 builder.Host.UseSerilog((context, configuration)
@@ -48,11 +57,6 @@ builder.Host.UseSerilog((context, configuration)
 
 var app = builder.Build();
 
-//app.Listen("http://127.0.0.1:3000");
-
-//Docker requires this:
-//app.Listen("https://*:3001");
-//app.Listen("https://contoso.com:3001");
 app.MapGrpcService<GreeterService>();
 
 if (app.Environment.IsDevelopment())
