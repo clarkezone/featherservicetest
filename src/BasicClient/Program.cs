@@ -20,13 +20,17 @@ namespace GRPCClient
                 }))
             {
 
-                var httpClientHandler = new HttpClientHandler();
+//                var httpClientHandler = new HttpClientHandler();
 
                 //httpClientHandler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
-                httpClientHandler.ServerCertificateCustomValidationCallback = ValidateServerCertificate;
-                var httpClient = new HttpClient(httpClientHandler);
+//                httpClientHandler.ServerCertificateCustomValidationCallback = ValidateServerCertificate;
+                var httpClient = new HttpClient();
+//                var httpClient = new HttpClient(httpClientHandler);
 
-                var channel = GrpcChannel.ForAddress("http://127.0.0.1:5000", new GrpcChannelOptions { HttpClient = httpClient, LoggerFactory = loggerFactory });
+		// 100.65.50.124
+		//100.115.64.28
+                //var channel = GrpcChannel.ForAddress("http://feather.dev.clarkezone.dev:5000", new GrpcChannelOptions { HttpClient = httpClient, LoggerFactory = loggerFactory });
+                var channel = GrpcChannel.ForAddress("https://feather-staging.dev.clarkezone.dev:5000", new GrpcChannelOptions { HttpClient = httpClient, LoggerFactory = loggerFactory });
 
                 var client = new Greeter.GreeterClient(channel);
 
