@@ -19,7 +19,7 @@ namespace GRPCClient
                     logging.SetMinimumLevel(LogLevel.Debug);
                 }))
             {
-
+//dirtybranch
                 var httpClientHandler = new HttpClientHandler();
 
                 //httpClientHandler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
