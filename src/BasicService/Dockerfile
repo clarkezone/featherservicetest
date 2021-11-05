@@ -20,7 +20,7 @@ RUN dotnet publish -c release -o /app --no-restore
 
 # final stage/image
 #FROM mcr.microsoft.com/dotnet/aspnet:6.0
-FROM mcr.microsoft.com/dotnet/aspnet:6.0-buster-slim-arm64v8
+FROM mcr.microsoft.com/dotnet/aspnet:6.0.0-bullseye-slim-arm64v8
 WORKDIR /app
 ENV ASPNETCORE_URLS=https://+;http://+;
 EXPOSE 5000
