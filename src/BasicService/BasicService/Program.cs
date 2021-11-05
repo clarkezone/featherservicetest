@@ -19,7 +19,7 @@ builder.Configuration.AddEnvironmentVariables(prefix:"basicservice_");
 builder.Configuration.AddCommandLine(args);
 
 // TODO replace Serilog with Otel->Loki   
-// TODO how to change log levels in prod   
+// TODO how to change log levels in prod 
 builder.Host.UseSerilog((context, configuration)
 	=>
         {
