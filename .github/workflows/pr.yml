@@ -53,5 +53,5 @@ jobs:
         uses: azure/CLI@v1
         with:
           azcliversion: 2.29.2
-          run: |
+          inlineScript: |
             az acr build --registry ${{ steps.deploy.outputs.registryNameOutput }} --image fst-${{ github.event.pull_request.head.ref}}:latest ./src/BasicService/
