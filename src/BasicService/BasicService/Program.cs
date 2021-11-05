@@ -15,7 +15,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddGrpc();
 
-
 //builder.Configuration.AddEnvironmentVariables(prefix:"basicservice_");
 builder.Configuration.AddCommandLine(args);
 
