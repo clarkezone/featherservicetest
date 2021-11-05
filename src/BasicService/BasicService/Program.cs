@@ -16,7 +16,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddGrpc();
 
 
-builder.Configuration.AddEnvironmentVariables(prefix:"basicservice_");
+//builder.Configuration.AddEnvironmentVariables(prefix:"basicservice_");
 builder.Configuration.AddCommandLine(args);
 
 builder.WebHost.ConfigureKestrel(
@@ -30,31 +30,31 @@ builder.WebHost.ConfigureKestrel(
 
 // TODO replace Serilog with Otel->Loki
 // TODO how to change log levels in prod
-builder.Host.UseSerilog((context, configuration)
-	=>
-        {
-            var logendpoint = context.Configuration["logendpoint"];
-            var credentials = new NoAuthCredentials(logendpoint);
-            configuration
-                .Enrich
-                .FromLogContext()
-                .Enrich
-                .WithProperty("Application", context.HostingEnvironment.ApplicationName)
-                .Enrich
-                .WithProperty("Environment", context.HostingEnvironment.EnvironmentName);
+//builder.Host.UseSerilog((context, configuration)
+//	=>
+//        {
+//            var logendpoint = context.Configuration["logendpoint"];
+//            var credentials = new NoAuthCredentials(logendpoint);
+//            configuration
+//                .Enrich
+//                .FromLogContext()
+//                .Enrich
+//                .WithProperty("Application", context.HostingEnvironment.ApplicationName)
+//                .Enrich
+//                .WithProperty("Environment", context.HostingEnvironment.EnvironmentName);
 
-            configuration
-                .WriteTo
-                .Console();
+  //          configuration
+//                .WriteTo
+//                .Console();
 
-            if(logendpoint != null)
-            {
-                configuration
-                .WriteTo
-                .LokiHttp(credentials);
-            }
-        }
-	);
+//            if(logendpoint != null)
+//            {
+//                configuration
+//                .WriteTo
+//                .LokiHttp(credentials);
+//            }
+//        }
+//	);
 
 var app = builder.Build();
 
