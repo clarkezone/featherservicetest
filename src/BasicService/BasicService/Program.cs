@@ -18,14 +18,14 @@ builder.Services.AddGrpc();
 //builder.Configuration.AddEnvironmentVariables(prefix:"basicservice_"); 
 builder.Configuration.AddCommandLine(args);
 
-builder.WebHost.ConfigureKestrel(
-		options => {
-		options.ConfigureEndpointDefaults(listen => {
+//builder.WebHost.ConfigureKestrel(
+//		options => {
+//		options.ConfigureEndpointDefaults(listen => {
 				
-			listen.Protocols = Microsoft.AspNetCore.Server.Kestrel.Core.HttpProtocols.Http2;	
-				});
-		}
-		);
+//			listen.Protocols = Microsoft.AspNetCore.Server.Kestrel.Core.HttpProtocols.Http2;	
+//				});
+//		}
+//		);
 
 // TODO replace Serilog with Otel->Loki
 // TODO how to change log levels in prod
