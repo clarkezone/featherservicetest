@@ -6,7 +6,7 @@ namespace GreeterLogic
     {
         public string SayHello(string name)
         {
-			return $"Hello {name} ({Environment.MachineName})";
+			return $"Hello {name}";
         }
     }
 }

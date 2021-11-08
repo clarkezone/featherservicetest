@@ -83,7 +83,7 @@ public class GreeterService : Greeter.GreeterBase
 	{
 		return Task.FromResult(new HelloReply
 		{
-			Message = _greeter.SayHello($"{request.Name} ({Environment.EnvironmentName}) ")
+			Message = _greeter.SayHello($"{request.Name} ({Environment.EnvironmentName}, {System.Environment.MachineName}) ")
 		}); ; ;
 	}
 }
