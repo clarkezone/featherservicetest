@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace GreeterLogic
 {
@@ -6,7 +6,7 @@ namespace GreeterLogic
     {
         public string SayHello(string name)
         {
-            return $"Hello " + name;
+			return $"Hello {name} ({Environment.MachineName})";
         }
     }
 }

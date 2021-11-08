@@ -56,6 +56,7 @@ builder.Configuration.AddCommandLine(args);
 //	);
 
 var app = builder.Build();
+GreeterService.Environment = app.Environment;
 
 app.MapGrpcService<GreeterService>();
 
@@ -70,6 +71,7 @@ public class GreeterService : Greeter.GreeterBase
 {
 	private readonly ILogger<GreeterService> _logger;
 	private readonly GreeterProvider _greeter;
+	public static IWebHostEnvironment Environment { get; set; }
 
 	public GreeterService(ILogger<GreeterService> logger)
 	{
@@ -81,7 +83,7 @@ public class GreeterService : Greeter.GreeterBase
 	{
 		return Task.FromResult(new HelloReply
 		{
-			Message = _greeter.SayHello(request.Name)
+			Message = _greeter.SayHello($"{request.Name} ({Environment.EnvironmentName}) ")
 		}); ; ;
 	}
 }
