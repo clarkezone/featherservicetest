@@ -19,18 +19,12 @@ namespace GRPCClient
                     logging.SetMinimumLevel(LogLevel.Debug);
                 }))
             {
+		    
 
-//                var httpClientHandler = new HttpClientHandler();
-
-                //httpClientHandler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
-//                httpClientHandler.ServerCertificateCustomValidationCallback = ValidateServerCertificate;
                 var httpClient = new HttpClient();
-//                var httpClient = new HttpClient(httpClientHandler);
 
-		// 100.65.50.124
-		//100.115.64.28
-                //var channel = GrpcChannel.ForAddress("http://feather.dev.clarkezone.dev:5000", new GrpcChannelOptions { HttpClient = httpClient, LoggerFactory = loggerFactory });
-                var channel = GrpcChannel.ForAddress("https://feather-staging.dev.clarkezone.dev:5000", new GrpcChannelOptions { HttpClient = httpClient, LoggerFactory = loggerFactory });
+  var channel = GrpcChannel.ForAddress("https://feather-staging.dev.clarkezone.dev:5000", new GrpcChannelOptions { HttpClient = httpClient, LoggerFactory = loggerFactory });
+//                var channel = GrpcChannel.ForAddress("http://rapi-c2-n1:5000", new GrpcChannelOptions { HttpClient = httpClient, LoggerFactory = loggerFactory });
 
                 var client = new Greeter.GreeterClient(channel);
 
