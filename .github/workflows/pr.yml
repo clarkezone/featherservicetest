@@ -52,11 +52,12 @@ jobs:
             az acr build --registry ${{ steps.deploy.outputs.registryNameOutput }} --image fst-${{ github.event.pull_request.head.ref}}:latest ./src/BasicService/
 
       - name: pushover-actions
+        if: always()
         uses: umahmood/pushover-actions@main
         env:
           PUSHOVER_TOKEN: ${{ secrets.PUSHOVER_TOKEN }}
           PUSHOVER_USER: ${{ secrets.PUSHOVER_USER }}
         with:
           status: ${{ job.status }}
-          title: 'Repo. Activity Notification'
-          message: 'Hello World!'
+          title: 'Image for ${{ github.event.pull_request.head.ref}} updated from PR'
+          message: Job completed'
