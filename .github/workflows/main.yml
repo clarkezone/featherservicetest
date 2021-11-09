@@ -56,21 +56,15 @@ jobs:
           inlineScript: |
             az acr build --registry ${{ steps.deploy.outputs.registryNameOutput }} --image featherservicetest_release:${{ steps.get_version.outputs.VERSION }} ./src/BasicService/
             
-#TODO: sure docker in this action and push to ACR
-#      - name: Build Docker
-#        run: docker build -t testimagecicd ./src/BasicService/. 
-        
-#      - name: Login to ACR
-#        uses: docker/login-action@v1
-#        with:
-#          username: ${{ secrets.DOCKERHUB_USERNAME }}
-#          password: ${{ secrets.DOCKERHUB_TOKEN }}
-        
-#      - name: Azure CLI script
-#        uses: azure/CLI@v1
-#        with:
-#          azcliversion: 2.0.72
-#          inlineScript: |
-#            az acr login --name clarkezonecontainerregistry2
+      - name: pushover-actions
+        if: always()
+        uses: umahmood/pushover-actions@main
+        env:
+          PUSHOVER_TOKEN: ${{ secrets.PUSHOVER_TOKEN }}
+          PUSHOVER_USER: ${{ secrets.PUSHOVER_USER }}
+        with:
+          status: ${{ job.status }}
+          title: 'Feather new release build completed with tag ${{ steps.get_version.outputs.VERSION }}' 
+          message: ${{ job.status }}
             
         
