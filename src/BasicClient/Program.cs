@@ -35,6 +35,9 @@ namespace GRPCClient
 					case "s":
 						targetAddress = "https://feather-staging.dev.clarkezone.dev:5001";
 						break;
+					case "p":
+						targetAddress = "https://feather.dev.clarkezone.dev:5001";
+						break;
 					case "l":
 						targetAddress = "http://localhost:5000";
 						break;
