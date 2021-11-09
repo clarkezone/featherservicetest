@@ -33,7 +33,7 @@ namespace GRPCClient
 						targetAddress = "http://rapi-c2-n1:5000";
 						break;
 					case "s":
-						targetAddress = "https://feather-staging.dev.clarkezone.dev:5000";
+						targetAddress = "https://feather-staging.dev.clarkezone.dev:5001";
 						break;
 					case "l":
 						targetAddress = "http://localhost:5000";
