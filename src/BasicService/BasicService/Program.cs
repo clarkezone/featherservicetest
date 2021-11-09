@@ -3,6 +3,7 @@ using GreeterLogic;
 using Grpc.Core;
 using GRPC;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -14,45 +15,49 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddGrpc();
 
-
-builder.Configuration.AddEnvironmentVariables(prefix:"basicservice_");
+//builder.Configuration.AddEnvironmentVariables(prefix:"basicservice_"); 
 builder.Configuration.AddCommandLine(args);
+
+//builder.WebHost.ConfigureKestrel(
+//		options => {
+//		options.ConfigureEndpointDefaults(listen => {
+				
+//			listen.Protocols = Microsoft.AspNetCore.Server.Kestrel.Core.HttpProtocols.Http2;	
+//				});
+//		}
+//		);
 
 // TODO replace Serilog with Otel->Loki
 // TODO how to change log levels in prod
-builder.Host.UseSerilog((context, configuration)
-	=>
-        {
-            var logendpoint = context.Configuration["logendpoint"];
-            var credentials = new NoAuthCredentials(logendpoint);
-            configuration
-                .Enrich
-                .FromLogContext()
-                .Enrich
-                .WithProperty("Application", context.HostingEnvironment.ApplicationName)
-                .Enrich
-                .WithProperty("Environment", context.HostingEnvironment.EnvironmentName);
+//builder.Host.UseSerilog((context, configuration)
+//	=>
+//        {
+//            var logendpoint = context.Configuration["logendpoint"];
+//            var credentials = new NoAuthCredentials(logendpoint);
+//            configuration
+//                .Enrich
+//                .FromLogContext()
+//                .Enrich
+//                .WithProperty("Application", context.HostingEnvironment.ApplicationName)
+//                .Enrich
+//                .WithProperty("Environment", context.HostingEnvironment.EnvironmentName);
 
-            configuration
-                .WriteTo
-                .Console();
+  //          configuration
+//                .WriteTo
+//                .Console();
 
-            if(logendpoint != null)
-            {
-                configuration
-                .WriteTo
-                .LokiHttp(credentials);
-            }
-        }
-	);
+//            if(logendpoint != null)
+//            {
+//                configuration
+//                .WriteTo
+//                .LokiHttp(credentials);
+//            }
+//        }
+//	);
 
 var app = builder.Build();
+GreeterService.Environment = app.Environment;
 
-//app.Listen("http://127.0.0.1:3000");
-
-//Docker requires this:
-//app.Listen("https://*:3001");
-//app.Listen("https://contoso.com:3001");
 app.MapGrpcService<GreeterService>();
 
 if (app.Environment.IsDevelopment())
@@ -66,6 +71,7 @@ public class GreeterService : Greeter.GreeterBase
 {
 	private readonly ILogger<GreeterService> _logger;
 	private readonly GreeterProvider _greeter;
+	public static IWebHostEnvironment Environment { get; set; }
 
 	public GreeterService(ILogger<GreeterService> logger)
 	{
@@ -77,7 +83,7 @@ public class GreeterService : Greeter.GreeterBase
 	{
 		return Task.FromResult(new HelloReply
 		{
-			Message = _greeter.SayHello(request.Name)
+			Message = _greeter.SayHello($"{request.Name} ({Environment.EnvironmentName}, {System.Environment.MachineName}) ")
 		}); ; ;
 	}
 }

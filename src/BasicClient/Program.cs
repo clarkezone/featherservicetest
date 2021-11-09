@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Grpc.Net.Client;
@@ -9,38 +9,51 @@ using System.Net.Security;
 
 namespace GRPCClient
 {
-    class Program
-    {
-        static async Task Main(string[] args)
-        {
-            using (var loggerFactory = LoggerFactory.Create(logging =>
-                {
-                    logging.AddConsole();
-                    logging.SetMinimumLevel(LogLevel.Debug);
-                }))
-            {
+	class Program
+	{
+		static async Task Main(string[] args)
+		{
+			using (var loggerFactory = LoggerFactory.Create(logging =>
+				{
+					logging.AddConsole();
+					logging.SetMinimumLevel(LogLevel.Debug);
+				}))
+			{
+				Console.WriteLine("Select environment by pressing key: D Dev S: Staging P: Production L: Localhost");
 
-                var httpClientHandler = new HttpClientHandler();
+				var key = Console.ReadLine();
 
-                //httpClientHandler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
-                httpClientHandler.ServerCertificateCustomValidationCallback = ValidateServerCertificate;
-                var httpClient = new HttpClient(httpClientHandler);
+				var httpClient = new HttpClient();
 
-                var channel = GrpcChannel.ForAddress("http://127.0.0.1:5000", new GrpcChannelOptions { HttpClient = httpClient, LoggerFactory = loggerFactory });
+				string targetAddress = "";
 
-                var client = new Greeter.GreeterClient(channel);
+				switch (key)
+				{
+					case "d":
+						targetAddress = "http://rapi-c2-n1:5000";
+						break;
+					case "s":
+						targetAddress = "https://feather-staging.dev.clarkezone.dev:5001";
+						break;
+					case "l":
+						targetAddress = "http://localhost:5000";
+						break;
+				}
+				var channel = GrpcChannel.ForAddress(targetAddress, new GrpcChannelOptions { HttpClient = httpClient, LoggerFactory = loggerFactory });
 
-                var reply = await client.SayHelloAsync(new HelloRequest { Name = "grpcClient" });
+				var client = new Greeter.GreeterClient(channel);
 
-                Console.WriteLine("Greeting: " + reply.Message);
+				var reply = await client.SayHelloAsync(new HelloRequest { Name = "grpcClient" });
 
-                Console.ReadKey();
-            }
-        }
+				Console.WriteLine("Greeting: " + reply.Message);
 
-        private static bool ValidateServerCertificate(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
-        {
-            return true;
-        }
-    }
+				Console.ReadKey();
+			}
+		}
+
+		private static bool ValidateServerCertificate(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
+		{
+			return true;
+		}
+	}
 }
